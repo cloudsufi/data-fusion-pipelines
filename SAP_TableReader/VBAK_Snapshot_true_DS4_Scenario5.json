@@ -1,0 +1,43 @@
+{
+  "name": "VBAK_Snapshot_true_DS4_Scenario5",
+  "appVersion": "45e51731-6844-11ee-a1e1-4e8020ae1ae6",
+  "description": "Data Pipeline Application",
+  "change": {
+    "author": "cdap",
+    "creationTimeMillis": 1697035293508,
+    "latest": true
+  },
+  "configuration": "{\"resources\":{\"memoryMB\":2048.0,\"virtualCores\":1.0},\"driverResources\":{\"memoryMB\":2048.0,\"virtualCores\":1.0},\"connections\":[{\"from\":\"SAP Table\",\"to\":\"BigQuery\"}],\"comments\":[],\"postActions\":[],\"properties\":{},\"processTimingEnabled\":true,\"stageLoggingEnabled\":false,\"stages\":[{\"name\":\"SAP Table\",\"plugin\":{\"name\":\"SapTable\",\"type\":\"batchsource\",\"label\":\"SAP Table\",\"artifact\":{\"name\":\"sap-table-plugins\",\"version\":\"0.11.0-SNAPSHOT\",\"scope\":\"USER\"},\"properties\":{\"useConnection\":\"false\",\"referenceName\":\"Reff\",\"jco.client.client\":\"100\",\"jco.client.lang\":\"EN\",\"connType\":\"directClient\",\"isSnapshot\":\"${Snapshot}\",\"jco.client.ashost\":\"10.132.0.30\",\"jco.client.sysnr\":\"00\",\"sapTable\":\"${table name}\",\"jco.client.user\":\"sumit\",\"jco.client.passwd\":\"Welcome@66\",\"gcpProjectId\":\"auto-detect\",\"gcsPath\":\"gs://cdf-sap-dependent-files\",\"options\":\"${Filter}\",\"packageSize\":\"${package size}\",\"numSplits\":\"1\"}},\"outputSchema\":\"\",\"id\":\"SAP-Table\"},{\"name\":\"BigQuery\",\"plugin\":{\"name\":\"BigQueryTable\",\"type\":\"batchsink\",\"label\":\"BigQuery\",\"artifact\":{\"name\":\"google-cloud\",\"version\":\"0.22.1\",\"scope\":\"SYSTEM\"},\"properties\":{\"useConnection\":\"false\",\"project\":\"auto-detect\",\"serviceAccountType\":\"filePath\",\"serviceFilePath\":\"auto-detect\",\"referenceName\":\"Ref\",\"dataset\":\"DS4_SAP_TABLE_11Oct\",\"table\":\"VBAK_Snapshot_true_DS4_Scenario5\",\"operation\":\"insert\",\"truncateTable\":\"true\",\"allowSchemaRelaxation\":\"true\",\"location\":\"US\",\"createPartitionedTable\":\"false\",\"partitioningType\":\"TIME\",\"partitionFilterRequired\":\"false\"}},\"outputSchema\":\"\",\"inputSchema\":[{\"name\":\"SAP Table\",\"schema\":\"\"}],\"id\":\"BigQuery\"}],\"schedule\":\"0 1 */1 * *\",\"engine\":\"spark\",\"numOfRecordsPreview\":100.0,\"rangeRecordsPreview\":{\"min\":1.0,\"max\":\"5000\"},\"description\":\"Data Pipeline Application\",\"maxConcurrentRuns\":1.0}",
+  "datasets": [],
+  "programs": [
+    {
+      "type": "Spark",
+      "app": "VBAK_Snapshot_true_DS4_Scenario5",
+      "name": "phase-1",
+      "description": "Sources \u0027SAP Table\u0027 to sinks \u0027BigQuery\u0027."
+    },
+    {
+      "type": "Workflow",
+      "app": "VBAK_Snapshot_true_DS4_Scenario5",
+      "name": "DataPipelineWorkflow",
+      "description": "Data Pipeline Workflow"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "BigQuery",
+      "name": "BigQueryTable",
+      "type": "batchsink"
+    },
+    {
+      "id": "SAP Table",
+      "name": "SapTable",
+      "type": "batchsource"
+    }
+  ],
+  "artifact": {
+    "name": "cdap-data-pipeline",
+    "version": "6.9.1",
+    "scope": "SYSTEM"
+  }
+}
